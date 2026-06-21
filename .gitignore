@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 .env
 logs/*.log
+# This is a comment for the second commit
