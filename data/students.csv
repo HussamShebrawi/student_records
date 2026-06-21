@@ -1,0 +1,55 @@
+student_id,name,age,email,grade,major
+1001,Fatima,,s1001@university.edu,73.51,Data Science
+1002,,24,s1002@university.edu,95.67,AI
+1003,KHALID,,s1003@university.edu,94.95,CS
+1004,Fatima,,s1004@university.edu,62.4,CS
+1005,fatima,18,@missing.com,61.03,CS
+1006,,20,s1006@university.edu,80.0,Data Science
+1007,,20,s1007@university.edu,55.16,Data Science
+1008,MONA,24,s1008@university.edu,69.36,
+1009,,22,,82.69,AI
+1010,Mona,18,s1010@university.edu,51.48,AI
+,LAYLA,twentyone,invalid-email,82.27,
+1012,hassan,22,@missing.com,64.58,AI
+1013,,nineteen,s1013@university.edu,61.19,
+1014,ahmed,18,s1014@university.edu,63.11,CS
+1015,HASSAN,19,s1015@university.edu,67.65,CS
+1016,youssef,18,s1016@university.edu,97.22,
+1017,Mona,,s1017@university.edu,51.47,CS
+1018,noura,22,,52.27,AI
+1019,NOURA,,@missing.com,93.17,CS
+1020,Mona,twentyone,invalid-email,53.6,
+,,20,invalid-email,76.05,AI
+1022,Noura,,s1022@university.edu,,AI
+1023,mona,,,76.24,CS
+1024,khalid,19,s1024@university.edu,,AI
+,AHMED,,,75.16,Robotics
+1026,,,@missing.com,62.93,CS
+1027,,21,s1027@university.edu,,CS
+1028,,,,69.9,
+1029,FATIMA,25,s1029@university.edu,77.85,Robotics
+1030,,,,,
+1031,Youssef,25,invalid-email,80.59,Robotics
+1032,OMAR,19,s1032@university.edu,89.18,
+,Noura,,,84.94,Robotics
+1034,,20,@missing.com,61.77,Robotics
+1035,Khalid,25,s1035@university.edu,84.82,
+1036,Noura,,s1036@university.edu,90.81,CS
+1037,FATIMA,25,s1037@university.edu,94.14,Data Science
+1038,AHMED,18,s1038@university.edu,57.83,
+,ahmed,25,,55.19,AI
+1040,OMAR,22,s1040@university.edu,77.05,CS
+,fatima,23,@missing.com,50.38,AI
+1042,YOUSSEF,20,s1042@university.edu,90.98,Robotics
+1043,Ahmed,,user@domain,,CS
+,noura,twenty,no_at_sign,83.88,CS
+,LAYLA,22,,62.67,Data Science
+1046,YOUSSEF,18,s1046@university.edu,55.19,Data Science
+,mona,,s1047@university.edu,,
+1001,fatima,twenty,s1001@university.edu,,CS
+1001,,20,s1001@university.edu,99.12,Robotics
+1010,Layla,19,user@domain,50.95,
+
+
+
+##ERR!@,NaN??,???,@@@,??,????
