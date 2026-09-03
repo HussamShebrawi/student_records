@@ -1,80 +1,38 @@
 import csv
 
-def is_normal(x):
-    if x == '':
-        return True
-    if x.isdigit():
-        return True
-    if x.isalpha():
-        return True
-    return False
+def detect_empty_cells(row_data, headers):
+    empty_cells = []
+    for index, cell in enumerate(row_data):
+        if cell == '':
+            empty_cells.append(headers[index])
+    return empty_cells
 
-def is_corrupted_row(x):
-    for cell in x:
-        if is_normal(cell):
-            return False
+def validate_age(age_string):
+    if age_string == '':
+        return False
+    if not age_string.isdigit():
+        return False
+    number = int(age_string)
+    if number < 0 or number > 120:
+        return False
     return True
 
-empty_rows = []
-corrupted_rows = []
-empty_cells = []
-duplicate_ids = []
-invalid_ages = []
-invalid_emails = []
-
-with open('data/students.csv', 'r') as f:
-    reader = csv.reader(f)
-    headers = next(reader)
-    line_number = 1
-    seen_ids = set()
-    for row in reader:
-        line_number += 1
-
-        if len(row) == 0:
-            empty_rows.append('EMPTY ROW at line '+ str(line_number))
-            continue
-
-        if is_corrupted_row(row):
-            corrupted_rows.append("CORRUPTED ROW at line "+ str(line_number)+ ":" + str(row))
-            continue
-
-        if row[0] != '':
-            if row[0] in seen_ids:
-                duplicate_ids.append("DUPLICATE ID at line "+ str(line_number)+ " : "+ row[0])
-            else:
-                seen_ids.add(row[0])
-  
-        if row[2] != '' and not row[2].isdigit():
-            invalid_ages.append("INVALID AGE at line "+ str(line_number)+ " : "+ row[2])
-
-        if row[3] != '' and ('@' not in row[3] or '.' not in row[3]):
-            invalid_emails.append("INVALID EMAIL at line "+ str(line_number)+ " : "+ row[3])
-
-  
-        for j in range(len(row)):
-            if row[j] == '':
-                empty_cells.append("EMPTY CELL at line "+ str(line_number)+ " column "+ headers[j])
-
-print("=== EMPTY ROWS ===")
-for item in empty_rows:
-    print(item)
-
-print("\n=== CORRUPTED ROWS ===")
-for item in corrupted_rows:
-    print(item)
-
-print("\n=== EMPTY CELLS ===")
-for item in empty_cells:
-    print(item)
-
-print("\n=== DUPLICATE IDS ===")
-for item in duplicate_ids:
-    print(item)
-
-print("\n=== INVALID AGES ===")
-for item in invalid_ages:
-    print(item)
-
-print("\n=== INVALID EMAILS ===")
-for item in invalid_emails:
-    print(item)
+try:
+    with open('data/students.csv', 'r') as f:
+        reader = csv.reader(f)
+        headers = next(reader)
+        
+        for row_number, row in enumerate(reader, start=2):
+            if len(row) < len(headers):
+                print(f"Line {row_number}: Row has {len(row)} columns, expected {len(headers)}")
+                continue
+            
+            empty = detect_empty_cells(row, headers)
+            if empty:
+                print(f"Line {row_number}: Empty cells in {empty}")
+            
+            if not validate_age(row[2]):
+                print(f"Line {row_number}: Invalid age {row[2]}")
+                
+except FileNotFoundError:
+    print("Error: The file data/students.csv was not found.")
