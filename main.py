@@ -8,7 +8,6 @@ def detect_empty_cells(row_data, headers):
     return empty_cells
 
 def validate_age(age_string):
-    """Check if email contains '@' and a dot after '@', return True if valid else False."""
     if age_string == '':
         return False
     if not age_string.isdigit():
@@ -19,6 +18,7 @@ def validate_age(age_string):
     return True
 
 def validate_email(email):
+    """Check if email contains '@' and a dot after '@', return True if valid else False."""
     if "@" not in email:
         return False
     parts = email.split("@")
