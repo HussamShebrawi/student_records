@@ -1,0 +1,1 @@
+[2026-09-05] Done: validate_age and detect_empty_cells. Stuck on: guard message, StopIteration on empty file (line 33).
