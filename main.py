@@ -2,8 +2,8 @@ import csv
 
 def detect_empty_cells(row_data, headers):
     empty_cells = []
-    for index, cell in enumerate(row_data):
-        if cell == '' or cell.isspace():
+    for index, field in enumerate(row_data):
+        if field == '' or field.isspace():
             empty_cells.append(headers[index])
     return empty_cells
 
@@ -26,6 +26,7 @@ def validate_email(email):
         return True
     return False
 
+seen_ids = set()
 
 try:
     with open('data/students.csv', 'r') as data:
@@ -34,14 +35,24 @@ try:
         
         for row_number, row in enumerate(reader, start=2):
             
+            if all(field.strip() == "" for field  in row):
+                print(f"[EMPTY ROW] Row {row_number}: {row} all fields are empty ")
+                continue
+            
             if len(row) != len(headers):
                 print(f"[CORRUPTED ROW] Row {row_number}: Expected {len(headers)} columns, got {len(row)}")
                 continue
             
+            current_id = row[0].strip()
+            if current_id in seen_ids:
+                print(f"[DUPLICATE ID] Row {row_number}: ID '{current_id}' already seen")
+                continue
+            seen_ids.add(current_id)
+            
             empty = detect_empty_cells(row, headers)
             if empty:
-                for cell in empty:
-                    print(f"[EMPTY CELL] Row {row_number}: '{cell}' is empty or whitespace")
+                for field_name in empty:
+                    print(f"[EMPTY CELL] Row {row_number}: '{field_name}' is empty or whitespace")            
             
             if not validate_age(row[2]):
                 print(f"[INVALID AGE] Row {row_number}: age value '{row[2]}' is invalid (must be 15-80)")
