@@ -2,3 +2,4 @@
 [2026-09-06] Done: unified error formatting and verified age/empty detection. Stuck on: StopIteration on empty CSV files.
 Done: EMPTY ROW detector, DUPLICATE ID detector, SPEC.md, english_log.md
 Stuck: none
+Done - validation pipeline and CSV writer completed successfully.

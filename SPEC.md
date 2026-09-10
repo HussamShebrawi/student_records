@@ -17,7 +17,7 @@
 ### 3. CORRUPTED ROW
 - **Description:** A row has a different number of columns than the header row.
 - **Detection:** `len(row) != len(headers)`
-- **Error Message:** `[CORRUPTED ROW] Row {row_number}: Expected {expected} columns, got {actual}`
+- **Error Message:** `[CORRUPTED ROW] Row {row_number}: Expected {len(headers)} columns, got {len(row)}`
 - **Severity:** Skip (row is ignored, processing continues)
 
 ### 4. INVALID AGE

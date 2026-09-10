@@ -16,3 +16,11 @@
 
 ### Framed sentence
 "When I write validation code, I must give **precedence** to the **guard** checks, or I might get an IndexError when the **iterator** reaches a row with **whitespace** fields or a **duplicate** ID."
+
+## S8
+
+1. writer — a tool that writes rows into a CSV file.
+2. valid — a row that passed every detector.
+3. output — the cleaned CSV file we write at the end.
+4. buffer — a list that holds valid rows before writing.
+5. raise — to throw a custom error instead of a raw traceback.
