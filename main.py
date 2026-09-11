@@ -1,4 +1,11 @@
 import csv
+import logging
+import sys
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(levelname)s - %(message)s',
+    filename='logs/student_records.log')
 
 class EmptyFileError(Exception):
     pass
@@ -33,7 +40,11 @@ valid_rows = []
 seen_ids = set()
 
 try:
-    input_filename = 'data/students.csv'
+    if len(sys.argv) > 1:
+        input_filename = sys.argv[1]
+    else:
+        input_filename = 'data/students.csv'
+   
     output_filename = 'data/students_cleaned.csv'
     
     with open(input_filename, 'r') as input_file:
@@ -45,24 +56,22 @@ try:
         except StopIteration:
             raise EmptyFileError(f"input file is empty: {input_filename}")
         
-        row_count = 0
         for row_number, row in enumerate(reader, start=2):
-            row_count += 1
             
             # 1. EMPTY ROW
             if all(field.strip() == "" for field in row):
-                print(f"[EMPTY ROW] Row {row_number}: all fields are empty")
+                logging.warning(f"[EMPTY ROW] Row {row_number}: all fields are empty")
                 continue
             
             # 2. CORRUPTED ROW
             if len(row) != len(headers):
-                print(f"[CORRUPTED ROW] Row {row_number}: Expected {len(headers)} columns, got {len(row)}")
+                logging.warning(f"[CORRUPTED ROW] Row {row_number}: Expected {len(headers)} columns, got {len(row)}")
                 continue
             
             # 3. DUPLICATE ID
             current_id = row[0].strip()
             if current_id in seen_ids:
-                print(f"[DUPLICATE ID] Row {row_number}: ID '{current_id}' already seen")
+                logging.warning(f"[DUPLICATE ID] Row {row_number}: ID '{current_id}' already seen")
                 continue
             
             
@@ -70,17 +79,17 @@ try:
             empty = detect_empty_cells(row, headers)
             if empty:
                 for field_name in empty:
-                    print(f"[EMPTY CELL] Row {row_number}: '{field_name}' is empty or whitespace")
+                    logging.warning(f"[EMPTY CELL] Row {row_number}: '{field_name}' is empty or whitespace")
                 continue 
             
             # 5. INVALID AGE
             if not validate_age(row[2]):
-                print(f"[INVALID AGE] Row {row_number}: age value '{row[2]}' is invalid (must be 15-80)")
+                logging.warning(f"[INVALID AGE] Row {row_number}: age value '{row[2]}' is invalid (must be 15-80)")
                 continue
             
             # 6. INVALID EMAIL
             if not validate_email(row[3]):
-                print(f"[INVALID EMAIL] Row {row_number}: email '{row[3]}' format is invalid")
+                logging.warning(f"[INVALID EMAIL] Row {row_number}: email '{row[3]}' format is invalid")
                 continue
             
 
@@ -88,8 +97,6 @@ try:
             seen_ids.add(current_id)
         
 
-        if row_count == 0:
-            raise EmptyFileError(f"input file is empty: {input_filename}")
     
 
 # Write cleaned output: only rows that passed all 6 validation checks.
@@ -99,7 +106,10 @@ try:
         writer.writerow(headers)
         writer.writerows(valid_rows) 
     
+    logging.info(f"Cleaned file written successfully: {len(valid_rows)} rows written to {output_filename}")
+
+    
 except FileNotFoundError:
-    print("Error: The file data/students.csv was not found.")
+    logging.error(f"could not find file: {input_filename}")
 except EmptyFileError as e:
-    print(e)
+    logging.error(f'{e}')
