@@ -24,3 +24,18 @@
 3. output — the cleaned CSV file we write at the end.
 4. buffer — a list that holds valid rows before writing.
 5. raise — to throw a custom error instead of a raw traceback.
+
+## 2026-09-11 (S9)
+
+### New Words
+36. **handler** (n.) — الجزء الذي يتعامل مع حدث أو خطأ. Example: "except FileNotFoundError: is an error handler."
+37. **format** (n.) — قالب شكل الرسالة. Example: "format='%(levelname)s - %(message)s'"
+38. **level** (n.) — درجة خطورة رسالة الـ logging. Example: "level=logging.DEBUG shows all messages."
+39. **stream** (n.) — تدفق البيانات للترمنال أو ملف. Example: "By default, logging streams to the console."
+40. **append** (v.) — إضافة للنهاية بدون مسح. Example: "The log file appends every new run."
+
+### Shadowing from my code
+"logging.info(f'Cleaned file written successfully: {len(valid_rows)} valid rows saved to {output_filename}')"
+
+### Framed sentence
+"The level and format settings in basicConfig decide what gets logged and how it looks, whether the output goes to a stream (console) or a file."

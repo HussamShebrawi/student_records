@@ -3,3 +3,5 @@
 Done: EMPTY ROW detector, DUPLICATE ID detector, SPEC.md, english_log.md
 Stuck: none
 Done - validation pipeline and CSV writer completed successfully.
+S9 — Done: added logging module, replaced all print calls with logging.warning/error/info, logs write to logs/student_records.log, fixed header_only.csv logic.
+S9 — Stuck: nothing blocked.
