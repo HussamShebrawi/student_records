@@ -1,1 +1,11 @@
 student_id,name,age,email,grade,major
+1005,fatima,18,@missing.com,61.03,CS
+1010,Mona,18,s1010@university.edu,51.48,AI
+1012,hassan,22,@missing.com,64.58,AI
+1014,ahmed,18,s1014@university.edu,63.11,CS
+1015,HASSAN,19,s1015@university.edu,67.65,CS
+1029,FATIMA,25,s1029@university.edu,77.85,Robotics
+1037,FATIMA,25,s1037@university.edu,94.14,Data Science
+1040,OMAR,22,s1040@university.edu,77.05,CS
+1042,YOUSSEF,20,s1042@university.edu,90.98,Robotics
+1046,YOUSSEF,18,s1046@university.edu,55.19,Data Science

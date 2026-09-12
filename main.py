@@ -1,6 +1,7 @@
 import csv
 import logging
-import sys
+import argparse
+
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -35,17 +36,32 @@ def validate_email(email):
         return True
     return False
 
+def print_summary(total, valid, invalid):
+    logging.info(f"Summary: {total} total, {valid} valid, {invalid} invalid")
+
+parser = argparse.ArgumentParser(description="Clean and validate a CSV file of student records.")
+
+parser.add_argument(
+    "--input",
+    default='data/students.csv',
+    help="Path to the input CSV file (default: data/students.csv)")
+
+parser.add_argument(
+    "--output",
+    default='data/students_cleaned.csv', 
+    help="Path to the cleaned output CSV file (default: data/students_cleaned.csv)")
+
+args=parser.parse_args()
+
+
 
 valid_rows = []
 seen_ids = set()
 
 try:
-    if len(sys.argv) > 1:
-        input_filename = sys.argv[1]
-    else:
-        input_filename = 'data/students.csv'
-   
-    output_filename = 'data/students_cleaned.csv'
+     
+    input_filename = args.input
+    output_filename = args.output
     
     with open(input_filename, 'r') as input_file:
         reader = csv.reader(input_file)
@@ -56,7 +72,11 @@ try:
         except StopIteration:
             raise EmptyFileError(f"input file is empty: {input_filename}")
         
+        total_rows_read=0
+        
         for row_number, row in enumerate(reader, start=2):
+            
+            total_rows_read +=1
             
             # 1. EMPTY ROW
             if all(field.strip() == "" for field in row):
@@ -96,17 +116,18 @@ try:
             valid_rows.append(row)
             seen_ids.add(current_id)
         
+        invalid_rows_count = total_rows_read - len(valid_rows)
 
     
 
-# Write cleaned output: only rows that passed all 6 validation checks.
-# Using newline='' to avoid extra blank lines on Windows.
+    # Write cleaned output: only rows that passed all 6 validation checks.
+    # Using newline='' to avoid extra blank lines on Windows.
     with open(output_filename, 'w', newline='') as output_file:
         writer = csv.writer(output_file)
         writer.writerow(headers)
         writer.writerows(valid_rows) 
     
-    logging.info(f"Cleaned file written successfully: {len(valid_rows)} rows written to {output_filename}")
+    print_summary(total_rows_read, len(valid_rows), invalid_rows_count)
 
     
 except FileNotFoundError:

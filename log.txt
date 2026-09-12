@@ -5,3 +5,7 @@ Stuck: none
 Done - validation pipeline and CSV writer completed successfully.
 S9 — Done: added logging module, replaced all print calls with logging.warning/error/info, logs write to logs/student_records.log, fixed header_only.csv logic.
 S9 — Stuck: nothing blocked.
+S10 — 2026-09-12
+Done: replaced sys.argv with argparse, added --input and --output with defaults,
+      wired args into pipeline, added print_summary(), E2 unlocked (45 words).
+Stuck: nothing major.

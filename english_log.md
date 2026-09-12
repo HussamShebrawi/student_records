@@ -39,3 +39,24 @@
 
 ### Framed sentence
 "The level and format settings in basicConfig decide what gets logged and how it looks, whether the output goes to a stream (console) or a file."
+
+## 2026-09-12 (S10)
+
+### New Words
+41. **argument** (n.) — وسيطة / مُدخَل. Example: "--input is an argument passed from the command line."
+42. **parser** (n.) — محلّل / قارئ التعليمات. Example: "ArgumentParser is the parser that reads flags."
+43. **default** (n.) — القيمة الافتراضية. Example: "default='data/students.csv'"
+44. **flag** (n.) — علَم / مؤشّر. Example: "--help is a flag."
+45. **summary** (n.) — ملخّص. Example: "print_summary() logs the summary."
+
+### Shadowing from my code
+"Clean and validate a CSV file of student records."
+
+### Completions
+1. The --input flag has a **default** of data/students.csv.
+2. argparse is a **parser** that reads flags from the command line.
+3. print_summary() logs a **summary** of total, valid, and invalid rows.
+
+### Free Sentences (E2)
+1. "Every argument in my script has a clear name, so the parser can read it without confusion."
+2. "When the user forgets to pass a flag, the default value keeps the program running smoothly and the final summary stays correct."
