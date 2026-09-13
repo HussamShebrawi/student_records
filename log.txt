@@ -9,3 +9,6 @@ S10 — 2026-09-12
 Done: replaced sys.argv with argparse, added --input and --output with defaults,
       wired args into pipeline, added print_summary(), E2 unlocked (45 words).
 Stuck: nothing major.
+[2026-09-12] S11
+Done: Created a fresh .venv, activated it, and proved python/pip resolve inside it. Generated requirements.txt from inside the venv with a descriptive header. Added .venv/ to .gitignore and verified via git status that it is ignored while requirements.txt is tracked. Completed English word bank 46–50 (reached 50/50, E3 threshold met).
+Stuck: Nothing significant.

@@ -3,3 +3,6 @@ __pycache__/
 .env
 logs/*.log
 # This is a comment for the second commit
+
+# .venv/ — Local virtual environment: recreated from requirements.txt; excluded because it holds OS-specific binaries and absolute paths.
+.venv/

@@ -1,0 +1,1 @@
+# requirements.txt — Currently empty: the project relies only on the Python standard library (csv, logging, argparse) and has no external dependencies. Regenerate from inside the project's .venv via: pip freeze > requirements.txt

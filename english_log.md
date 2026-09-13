@@ -60,3 +60,26 @@
 ### Free Sentences (E2)
 1. "Every argument in my script has a clear name, so the parser can read it without confusion."
 2. "When the user forgets to pass a flag, the default value keeps the program running smoothly and the final summary stays correct."
+
+## 2026-09-12 (S11)
+
+### New Words
+46. **environment** (n.) — البيئة (السياق الذي يعمل فيه البرنامج). Example: "I created a local **environment** inside .venv to isolate my project's dependencies."
+47. **dependency** (n.) — اعتمادية / مكتبة خارجية يعتمد عليها المشروع. Example: "My requirements.txt is currently empty because the project has no external **dependency**."
+48. **reproduce** (v.) — يُعيد إنتاج / يُكرّر نفس النتيجة. Example: "The requirements.txt comment explains how to **reproduce** the environment: generate it with `pip freeze > requirements.txt`, then install it elsewhere with `pip install -r requirements.txt`."
+49. **resolve** (v.) — يُحلّ / يُحدّد (أي ملف سيُنفَّذ). Example: "When I type `python`, the shell **resolve**s it to /c/Users/PC/Desktop/student_records/.venv/Scripts/python."
+50. **ignore** (v.) — يتجاهل. Example: "Because .venv/ is listed in .gitignore, git will **ignore** the whole folder."
+
+### Shadowing from my code
+"# .venv/ — Local virtual environment: recreated from requirements.txt; excluded because it holds OS-specific binaries and absolute paths."
+".venv/"
+"pip 24.3.1 from C:\Users\PC\Desktop\student_records\.venv\Lib\site-packages\pip (python 3.13)"
+
+### Completions
+1. Because .venv/ is listed in .gitignore, git will **ignore** the whole folder.
+2. pip freeze prints every installed **dependency** with its exact version.
+3. The shell **resolve**s a command name to the first matching file in PATH.
+
+### Free Sentences (E2)
+1. "Today I learned that .venv/ must be **ignore**d because it contains OS-specific binaries."
+2. "The project has zero external dependencies now, so requirements.txt is empty."
