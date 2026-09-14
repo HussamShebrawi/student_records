@@ -12,3 +12,6 @@ Stuck: nothing major.
 [2026-09-12] S11
 Done: Created a fresh .venv, activated it, and proved python/pip resolve inside it. Generated requirements.txt from inside the venv with a descriptive header. Added .venv/ to .gitignore and verified via git status that it is ignored while requirements.txt is tracked. Completed English word bank 46–50 (reached 50/50, E3 threshold met).
 Stuck: Nothing significant.
+[2026-09-14] S12
+Done: added __main__ guard to make main.py importable, installed pytest in .venv, wrote first test test_validate_age_accepts_valid_and_rejects_invalid_and_checks_boundaries with boundary checks, proved break-fix, updated requirements.txt truthfully and ignored .pytest_cache/, logged 5 new words (51-55)
+Stuck: none

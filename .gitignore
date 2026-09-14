@@ -6,3 +6,6 @@ logs/*.log
 
 # .venv/ — Local virtual environment: recreated from requirements.txt; excluded because it holds OS-specific binaries and absolute paths.
 .venv/
+
+# pytest
+.pytest_cache/

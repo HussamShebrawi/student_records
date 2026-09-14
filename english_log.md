@@ -83,3 +83,26 @@
 ### Free Sentences (E2)
 1. "Today I learned that .venv/ must be **ignore**d because it contains OS-specific binaries."
 2. "The project has zero external dependencies now, so requirements.txt is empty."
+
+## 2026-09-14 (S12)
+
+### New Words
+51. **assert** (v.) — يتحقق / يتأكد. Example: "assert validate_age('20') is True checks valid age"
+52. **boundary** (n.) — قيمة حدودية. Example: "I tested boundary values 15 and 80 for age"
+53. **cache** (n.) — ذاكرة تخزين مؤقتة. Example: ".pytest_cache/ is a cache folder created by pytest"
+54. **importable** (adj.) — قابل للاستيراد. Example: "After adding if __name__ == '__main__': guard, main.py is importable"
+55. **failure** (n.) — فشل. Example: "pytest showed a failure when I flipped assert True to False"
+
+### Shadowing from my code
+"from main import validate_age"
+"tests/test_validators.py::test_validate_age_accepts_valid_and_rejects_invalid_and_checks_boundaries PASSED"
+"AssertionError: assert True is False"
+
+### Completions
+1. When I import main, nothing runs because of the guard.
+2. A boundary test checks the exact edges of valid range like 15 and 80.
+3. If pytest shows a failure, I read the error line to find the broken assert.
+
+### Free Sentences (E2)
+1. After running `python -m pytest -v`, I saw that the boundary test passed, which proved my validate_age function is correct.
+2. When I flipped one assert, pytest showed a failure with the exact line number, so the cache is not needed to reproduce the bug.

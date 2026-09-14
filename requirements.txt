@@ -1,1 +1,8 @@
-# requirements.txt — Currently empty: the project relies only on the Python standard library (csv, logging, argparse) and has no external dependencies. Regenerate from inside the project's .venv via: pip freeze > requirements.txt
+# Auto-generated from .venv via `python -m pip freeze`
+# Contains pytest and its dependencies for this project.
+colorama==0.4.6
+iniconfig==2.3.0
+packaging==26.3
+pluggy==1.6.0
+Pygments==2.21.0
+pytest==9.1.1
