@@ -1,4 +1,4 @@
-from main import validate_age
+from main import validate_age, validate_email, detect_empty_cells
 
 
 def test_validate_age_accepts_valid_and_rejects_invalid_and_checks_boundaries():
@@ -22,3 +22,22 @@ def test_validate_age_accepts_valid_and_rejects_invalid_and_checks_boundaries():
 
     # Invalid: empty string
     assert validate_age("") is False
+
+
+def test_validate_email_accepts_valid_and_rejects_invalid_format():
+    # Valid: contains '@' and '.' after it
+    assert validate_email("ali@example.com") is True
+
+    # Invalid: no '@' symbol
+    assert validate_email("ali.example.com") is False
+
+    # Invalid: '@' but no '.' after it
+    assert validate_email("ali@example") is False
+    
+
+def test_detect_empty_cells_returns_only_empty_or_whitespace_field_names():
+    headers = ["id", "name", "age", "email"]
+    row = ["1", "Ali", "", "   "]
+
+    # Only 'age' (empty) and 'email' (whitespace-only) should be reported
+    assert detect_empty_cells(row, headers) == ["age", "email"]

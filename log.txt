@@ -15,3 +15,6 @@ Stuck: Nothing significant.
 [2026-09-14] S12
 Done: added __main__ guard to make main.py importable, installed pytest in .venv, wrote first test test_validate_age_accepts_valid_and_rejects_invalid_and_checks_boundaries with boundary checks, proved break-fix, updated requirements.txt truthfully and ignored .pytest_cache/, logged 5 new words (51-55)
 Stuck: none
+[2026-09-15] S13
+Done: wrote test #2 for validate_email (valid, no '@', no '.' after '@'), wrote test #3 for detect_empty_cells (mixed row with normal, empty, and whitespace-only cells), ran full suite and saw 3 passed, proved mutation catches change by flipping 'age' to 'name' then reverting, verified git status is clean (only tests/test_validators.py modified, .venv and .pytest_cache ignored), logged 5 new words (56-60: suite, mutation, revert, detect, pattern)
+Stuck: none

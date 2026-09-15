@@ -106,3 +106,25 @@
 ### Free Sentences (E2)
 1. After running `python -m pytest -v`, I saw that the boundary test passed, which proved my validate_age function is correct.
 2. When I flipped one assert, pytest showed a failure with the exact line number, so the cache is not needed to reproduce the bug.
+
+## 2026-09-15 (S13)
+
+### New Words
+56. **suite** (n.) — مجموعة اختبارات. Example: "My full test suite has 3 tests, and all of them pass"
+57. **mutation** (n.) — تغيير/تحوير. Example: "The mutation test failed when I changed 'age' to 'name' in the assert"
+58. **revert** (v.) — يرجّع/يعيد. Example: "I had to revert the assert back to 'age' so the test passes again"
+59. **detect** (v.) — يكتشف. Example: "detect_empty_cells returns the names of empty or whitespace fields"
+60. **pattern** (n.) — نمط/قالب. Example: "Both new tests follow the same pattern as test #1 with comments and is True/is False"
+
+### Shadowing from my code
+"assert detect_empty_cells(row, headers) == ['age', 'email']"
+"test_detect_empty_cells_returns_only_empty_or_whitespace_field_names PASSED"
+
+### Completions
+1. My full test suite passes when I run `python -m pytest -v` and see `3 passed`.
+2. After the mutation failed as expected, I reverted the assert and ran pytest again to confirm it passed.
+3. Both new tests follow the same pattern because each one has a descriptive name, comments above asserts, and uses is True/is False for booleans.
+
+### Free Sentences (E2)
+1. When I mutated the assert from 'age' to 'name', pytest detected the change and showed a failure with the exact diff.
+2. Reverting the mutation back to the correct value proved that the test suite is strong enough to catch real bugs.
