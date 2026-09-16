@@ -3,7 +3,8 @@
 A Python script that reads a messy CSV file of student records, validates
 each row against six data-quality checks, and writes only the valid rows
 to a cleaned output file. Rejected rows are logged with the specific
-reason for rejection.
+reason for rejection in `logs/student_records.log`, while the console
+stays quiet by default.
 
 ## Install
 
@@ -27,10 +28,10 @@ By default, the script reads from `data/students.csv` and writes to
 | `--input`  | `data/students.csv`          | Path to the input CSV file          |
 | `--output` | `data/students_cleaned.csv`  | Path to the cleaned output CSV file |
 
-Example:
+Example (using different paths than the defaults):
 
 ```bash
-python main.py --input data/students.csv --output data/students_cleaned.csv
+python main.py --input /tmp/scratch/x.csv --output /tmp/scratch/x_cleaned.csv
 ```
 
 ## Test
@@ -64,6 +65,13 @@ development, the following challenges shaped the validation logic:
   in `seen_ids` after it passes every check. This means a row that
   fails one check does not block a later valid row that shares the
   same ID.
+
+- **Only the first problem is reported per row.** Each check ends with
+  `continue`, which stops processing the current row and moves to the
+  next one. As a result, a row with multiple problems only shows the
+  first one in the log — for example, a row with an empty email never
+  reaches the `INVALID EMAIL` check, because `EMPTY CELL` catches it
+  first and stops the pipeline.
 
 ## Known validation limits
 
