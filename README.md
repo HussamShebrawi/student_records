@@ -31,8 +31,13 @@ By default, the script reads from `data/students.csv` and writes to
 Example (using different paths than the defaults):
 
 ```bash
+mkdir -p /tmp/scratch
+printf 'student_id,name,age,email,major,grade\n1,Ahmad,20,a@mail.com,CS,A\n' > /tmp/scratch/x.csv
 python main.py --input /tmp/scratch/x.csv --output /tmp/scratch/x_cleaned.csv
 ```
+
+The first two commands create a small test CSV in /tmp/scratch/, so the
+example runs without touching the repository's own data files.
 
 ## Test
 
