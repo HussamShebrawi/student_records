@@ -128,3 +128,29 @@
 ### Free Sentences (E2)
 1. When I mutated the assert from 'age' to 'name', pytest detected the change and showed a failure with the exact diff.
 2. Reverting the mutation back to the correct value proved that the test suite is strong enough to catch real bugs.
+
+## 2026-09-16 (S14)
+
+### New Words
+61. **override** (v.) — يتجاوز/يستبدل القيمة الافتراضية. Example: "You can override both paths by passing --input and --output flags"
+62. **shallow** (adj.) — سطحي/غير عميق. Example: "Email validation is shallow: it only checks for @ and a dot after it"
+63. **rejection** (n.) — رفض. Example: "Rejected rows are logged with the specific reason for rejection"
+64. **bounds** (n.) — حدود. Example: "The bounds are hard-coded: age must be between 15 and 80"
+65. **chronological** (adj.) — زمني/بترتيب القراءة. Example: "The log is chronological: one line per problem, in reading order, with a single Summary line at the end"
+
+### Shadowing from my README
+"Rejected rows are logged with the specific reason for rejection in `logs/student_records.log`, while the console stays quiet by default."
+"Only the first problem is reported per row because each check ends with continue."
+"Email validation is shallow: `@mail.com` and `a@.com` are accepted."
+
+### Completions
+1. I can override the default input and output paths by passing --input and --output flags.
+2. Email validation in this script is shallow, which means it accepts `@mail.com` even though that address has no username.
+3. The log records every rejection chronologically, one line per problem, followed by a single Summary line.
+
+### Framed Sentence
+"EMPTY ROW must run before CORRUPTED ROW because a blank line is returned by csv.reader as an empty list [], and all([]) is True — so the empty row would also match the corrupted-row check if it ran first."
+
+### Free Sentences (E3)
+1. The age bounds are hard-coded between 15 and 80, so any value outside that range is rejected.
+2. Reading the log chronologically showed that EMPTY CELL fired before INVALID AGE for the same row, which proved the pipeline order matters.
