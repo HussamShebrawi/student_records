@@ -39,7 +39,78 @@ def print_summary(total, valid, invalid):
     logging.info(f"Summary: {total} total, {valid} valid, {invalid} invalid")
 
 
+def clean_csv(input_path, output_path):
+    """Core logic: reads, validates, writes, and RAISES exceptions."""
+    valid_rows = []
+    seen_ids = set()
+
+    with open(input_path, 'r') as input_file:
+        reader = csv.reader(input_file)
+
+        try:
+            headers = next(reader)
+        except StopIteration:
+            raise EmptyFileError(f"input file is empty: {input_path}")
+
+        total_rows_read = 0
+
+        for row_number, row in enumerate(reader, start=2):
+            total_rows_read += 1
+
+            # 1. EMPTY ROW
+            if all(field.strip() == "" for field in row):
+                logging.warning(
+                    f"[EMPTY ROW] Row {row_number}: all fields are empty")
+                continue
+
+            # 2. CORRUPTED ROW
+            if len(row) != len(headers):
+                logging.warning(
+                    f"[CORRUPTED ROW] Row {row_number}: Expected {len(headers)} columns, got {len(row)}")
+                continue
+
+            # 3. DUPLICATE ID
+            current_id = row[0].strip()
+            if current_id in seen_ids:
+                logging.warning(
+                    f"[DUPLICATE ID] Row {row_number}: ID '{current_id}' already seen")
+                continue
+
+            # 4. EMPTY CELL
+            empty_field_names = detect_empty_cells(row, headers)
+            if empty_field_names:
+                for field_name in empty_field_names:
+                    logging.warning(
+                        f"[EMPTY CELL] Row {row_number}: '{field_name}' is empty or whitespace")
+                continue
+
+            # 5. INVALID AGE
+            if not validate_age(row[2]):
+                logging.warning(
+                    f"[INVALID AGE] Row {row_number}: age value '{row[2]}' is invalid (must be 15-80)")
+                continue
+
+            # 6. INVALID EMAIL
+            if not validate_email(row[3]):
+                logging.warning(
+                    f"[INVALID EMAIL] Row {row_number}: email '{row[3]}' format is invalid")
+                continue
+
+            valid_rows.append(row)
+            seen_ids.add(current_id)
+
+        invalid_rows_count = total_rows_read - len(valid_rows)
+
+    with open(output_path, 'w', newline='') as output_file:
+        writer = csv.writer(output_file)
+        writer.writerow(headers)
+        writer.writerows(valid_rows)
+
+    print_summary(total_rows_read, len(valid_rows), invalid_rows_count)
+
+
 def main():
+    """CLI & Error handling layer."""
     logging.basicConfig(
         level=logging.DEBUG,
         format='%(levelname)s - %(message)s',
@@ -60,79 +131,10 @@ def main():
 
     parsed_arguments = parser.parse_args()
 
-    valid_rows = []
-    seen_ids = set()
-
     try:
-        input_filename = parsed_arguments.input
-        output_filename = parsed_arguments.output
-
-        with open(input_filename, 'r') as input_file:
-            reader = csv.reader(input_file)
-
-            try:
-                headers = next(reader)
-            except StopIteration:
-                raise EmptyFileError(f"input file is empty: {input_filename}")
-
-            total_rows_read = 0
-
-            for row_number, row in enumerate(reader, start=2):
-                total_rows_read += 1
-
-                # 1. EMPTY ROW
-                if all(field.strip() == "" for field in row):
-                    logging.warning(
-                        f"[EMPTY ROW] Row {row_number}: all fields are empty")
-                    continue
-
-                # 2. CORRUPTED ROW
-                if len(row) != len(headers):
-                    logging.warning(
-                        f"[CORRUPTED ROW] Row {row_number}: Expected {len(headers)} columns, got {len(row)}")
-                    continue
-
-                # 3. DUPLICATE ID
-                current_id = row[0].strip()
-                if current_id in seen_ids:
-                    logging.warning(
-                        f"[DUPLICATE ID] Row {row_number}: ID '{current_id}' already seen")
-                    continue
-
-                # 4. EMPTY CELL
-                empty_field_names = detect_empty_cells(row, headers)
-                if empty_field_names:
-                    for field_name in empty_field_names:
-                        logging.warning(
-                            f"[EMPTY CELL] Row {row_number}: '{field_name}' is empty or whitespace")
-                    continue
-
-                # 5. INVALID AGE
-                if not validate_age(row[2]):
-                    logging.warning(
-                        f"[INVALID AGE] Row {row_number}: age value '{row[2]}' is invalid (must be 15-80)")
-                    continue
-
-                # 6. INVALID EMAIL
-                if not validate_email(row[3]):
-                    logging.warning(
-                        f"[INVALID EMAIL] Row {row_number}: email '{row[3]}' format is invalid")
-                    continue
-
-                valid_rows.append(row)
-                seen_ids.add(current_id)
-
-            invalid_rows_count = total_rows_read - len(valid_rows)
-
-        with open(output_filename, 'w', newline='') as output_file:
-            writer = csv.writer(output_file)
-            writer.writerow(headers)
-            writer.writerows(valid_rows)
-
-        print_summary(total_rows_read, len(valid_rows), invalid_rows_count)
-
+        clean_csv(parsed_arguments.input, parsed_arguments.output)
     except FileNotFoundError:
-        logging.error(f"could not find file: {input_filename}")
+        logging.error(f"could not find file: {parsed_arguments.input}")
     except EmptyFileError as error:
         logging.error(f"{error}")
 

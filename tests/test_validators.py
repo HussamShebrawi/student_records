@@ -1,43 +1,40 @@
-from main import validate_age, validate_email, detect_empty_cells
+import pytest
+from main import (
+    validate_age,
+    validate_email,
+    detect_empty_cells,
+    clean_csv,
+    EmptyFileError,
+)
 
 
 def test_validate_age_accepts_valid_and_rejects_invalid_and_checks_boundaries():
-    # Valid age (within 15-80)
-    assert validate_age("20") is True
-
-    # Invalid: not a number
-    assert validate_age("twentyone") is False
-
-    # Boundary: minimum (15) — should be valid
     assert validate_age("15") is True
-
-    # Boundary: maximum (80) — should be valid
     assert validate_age("80") is True
-
-    # Boundary: below minimum (14) — should be invalid
     assert validate_age("14") is False
-
-    # Boundary: above maximum (81) — should be invalid
     assert validate_age("81") is False
-
-    # Invalid: empty string
     assert validate_age("") is False
+    assert validate_age("abc") is False
 
 
 def test_validate_email_accepts_valid_and_rejects_invalid_format():
-    # Valid: contains '@' and '.' after it
-    assert validate_email("ali@example.com") is True
+    assert validate_email("student@example.com") is True
+    assert validate_email("invalid-email") is False
+    assert validate_email("no-at-sign.com") is False
+    assert validate_email("no-dot@domain") is False
 
-    # Invalid: no '@' symbol
-    assert validate_email("ali.example.com") is False
-
-    # Invalid: '@' but no '.' after it
-    assert validate_email("ali@example") is False
-    
 
 def test_detect_empty_cells_returns_only_empty_or_whitespace_field_names():
-    headers = ["id", "name", "age", "email"]
-    row = ["1", "Ali", "", "   "]
+    headers = ["student_id", "name", "age", "email", "grade", "major"]
+    row = ["1010", "  ", "20", "", "A", "CS"]
+    assert detect_empty_cells(row, headers) == ["name", "email"]
 
-    # Only 'age' (empty) and 'email' (whitespace-only) should be reported
-    assert detect_empty_cells(row, headers) == ["age", "email"]
+
+def test_clean_csv_raises_empty_file_error_for_empty_input(tmp_path):
+    empty_input = tmp_path / "empty.csv"
+    empty_input.write_text("")
+
+    output_file = tmp_path / "cleaned.csv"
+
+    with pytest.raises(EmptyFileError):
+        clean_csv(empty_input, output_file)
