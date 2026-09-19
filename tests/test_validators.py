@@ -38,3 +38,18 @@ def test_clean_csv_raises_empty_file_error_for_empty_input(tmp_path):
 
     with pytest.raises(EmptyFileError):
         clean_csv(empty_input, output_file)
+
+        
+def test_clean_csv_handles_header_only_file_without_errors(tmp_path):
+    header_content = "student_id,name,age,email,grade,major\n"
+    header_input = tmp_path / "header_only.csv"
+    header_input.write_text(header_content)
+
+    output_file = tmp_path / "cleaned.csv"
+
+    clean_csv(header_input, output_file)
+
+    assert output_file.exists()
+    output_lines = output_file.read_text().strip().splitlines()
+    assert len(output_lines) == 1
+    assert output_lines[0] == "student_id,name,age,email,grade,major"
