@@ -46,8 +46,8 @@ python -m pytest -v
 ```
 
 The test suite is located in `tests/test_validators.py` and contains
-3 tests covering `validate_age`, `validate_email`, and
-`detect_empty_cells`.
+5 tests covering `validate_age`, `validate_email`, `detect_empty_cells`,
+and `clean_csv` (empty file and header-only file).
 
 ## Challenges in cleaning broken data
 
