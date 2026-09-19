@@ -154,3 +154,26 @@
 ### Free Sentences (E3)
 1. The age bounds are hard-coded between 15 and 80, so any value outside that range is rejected.
 2. Reading the log chronologically showed that EMPTY CELL fired before INVALID AGE for the same row, which proved the pipeline order matters.
+
+## 2026-09-19 (S15)
+
+### New Words
+66. **fixture** (n.) — أداة تجهيز / مورد مسبق للاختبار في pytest. Example: "pytest provides the tmp_path fixture to generate isolated temporary directories"
+67. **isolate** (v.) — يعزل / يفصل. Example: "Using a unique temporary directory helps isolate each test from others"
+68. **refactor** (v.) — يعيد هيكلة الكود لتحسين تصميمه دون تغيير سلوكه الخارجي. Example: "We refactored main() to extract clean_csv and make it directly testable"
+69. **header-only** (adj.) — يحتوي على الترويسة فقط دون صفوف بيانات. Example: "A header-only CSV file should produce an output file with zero data rows"
+70. **fidelity** (n.) — دقة المطابقة والأمانة التوثيقية. Example: "Example fidelity means the command in the README runs exactly as documented"
+
+### Shadowing from my test code
+"def test_clean_csv_raises_empty_file_error_for_empty_input(tmp_path):"
+"with pytest.raises(EmptyFileError): clean_csv(empty_input, output_file)"
+"output_lines = output_file.read_text().strip().splitlines()"
+
+### Completions
+1. In pytest, tmp_path is a built-in **fixture** that creates a temporary directory for tests.
+2. We decided to **refactor** main() into clean_csv so we could test file-level behavior directly.
+3. The test confirmed that processing a **header-only** CSV file generates an output file with zero data rows.
+
+### Free Sentences (E2)
+1. The tmp_path fixture helps isolate each test by giving it a unique temporary directory, so tests never interfere with each other.
+2. We refactored main() to extract clean_csv, and the header-only test proved that example fidelity is not just a claim in the README but a verified fact.
